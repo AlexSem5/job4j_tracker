@@ -32,12 +32,4 @@ public class Triangle {
         }
         return rsl;
     }
-
-    public static void main(String[] args) {
-        Point point1 = new Point(1, 2);
-        Point point2 = new Point(3, 5);
-        Point point3 = new Point(5, 7);
-        Triangle triangle = new Triangle(point1, point2, point3);
-        triangle.area();
-    }
 }
