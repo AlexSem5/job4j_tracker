@@ -11,7 +11,7 @@ public class PointTest {
         Point point1 = new Point(0, 0, 0);
         Point point2 = new Point(1, 1, 1);
         double rsl = point1.distance3d(point2);
-        double expected =  1.7320508075688772;
+        double expected =  1.732;
         assertThat(rsl).isCloseTo(expected, offset(0.001));
     }
 
@@ -20,7 +20,7 @@ public class PointTest {
         Point point1 = new Point(0, 1, 0);
         Point point2 = new Point(1, 3, 1);
         double rsl = point1.distance3d(point2);
-        double expected =  2.449489742783178;
+        double expected =  2.449;
         assertThat(rsl).isCloseTo(expected, offset(0.001));
     }
 }
