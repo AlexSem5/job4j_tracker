@@ -11,5 +11,4 @@ public class Shop {
         }
         return result;
     }
-
 }
