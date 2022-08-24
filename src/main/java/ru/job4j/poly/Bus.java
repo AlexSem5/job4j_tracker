@@ -1,11 +1,11 @@
 package ru.job4j.poly;
 
 public class Bus implements Transport {
-    private double pricePerLitre = 5.05;
+    private double pricePerLitre = 5.07;
 
     @Override
     public void ride() {
-        System.out.print("Let us go");
+        System.out.print("Let's go");
     }
 
     @Override
