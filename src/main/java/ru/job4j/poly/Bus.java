@@ -5,7 +5,7 @@ public class Bus implements Transport {
 
     @Override
     public void ride() {
-        System.out.print("Let's go");
+
     }
 
     @Override
