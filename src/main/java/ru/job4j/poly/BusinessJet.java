@@ -3,7 +3,7 @@ package ru.job4j.poly;
 public class BusinessJet implements Transport {
     @Override
     public void ride() {
-        System.out.println("hi");
+        System.out.println("hihey");
     }
 
     @Override
