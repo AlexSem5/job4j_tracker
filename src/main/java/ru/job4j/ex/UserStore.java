@@ -20,7 +20,7 @@ public class UserStore {
     }
 
     public static boolean validate(User user) throws UserInvalidException {
-        boolean result = user != null && user.isValid() && user.getUsername().length() > 3;
+        boolean result = user.isValid() && user.getUsername().length() > 3;
         if (!result) {
             throw new UserInvalidException("Пользователь не валидный");
         }
@@ -31,17 +31,13 @@ public class UserStore {
         User[] users = {
                 new User("Petr Arsentev", true)
         };
-        User user = null;
+
         try {
-            user = findUser(users, "Petr Arsentev");
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
+            User user = findUser(users, "Petr Arsentev");
             if (validate(user)) {
                 System.out.println("This user has an access");
             }
-        } catch (UserInvalidException e) {
+        } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
     }
