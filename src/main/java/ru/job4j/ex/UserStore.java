@@ -20,11 +20,10 @@ public class UserStore {
     }
 
     public static boolean validate(User user) throws UserInvalidException {
-        boolean result = user.isValid() && user.getUsername().length() > 3;
-        if (!result) {
+        if (!(user.isValid() && user.getUsername().length() > 3)) {
             throw new UserInvalidException("Пользователь не валидный");
         }
-        return result;
+        return user.isValid() && user.getUsername().length() > 3;
     }
 
     public static void main(String[] args) {
