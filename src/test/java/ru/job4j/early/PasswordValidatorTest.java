@@ -1,7 +1,6 @@
 package ru.job4j.early;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.ex.Fact;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
@@ -10,9 +9,12 @@ public class PasswordValidatorTest {
 
     @Test
     public void whenSubstrings() {
-        String result = PasswordValidator.validate("Qwertyqwerty");
-        String expected = "Пароль не должен содержать qwerty, 12345, password, admin, user без учета регистра";
-        assertThat(result).isEqualTo(expected);
+        SubstringException exception = assertThrows(
+                SubstringException.class,
+                () -> {
+                    PasswordValidator.validate("qwerty");
+                });
+        assertThat(exception.getMessage()).isEqualTo("Пароль не должен содержать qwerty, 12345, password, admin, user без учета регистра");
     }
 
     @Test
@@ -27,43 +29,58 @@ public class PasswordValidatorTest {
 
     @Test
     public void whenInvalidLength() {
-        String result = PasswordValidator.validate("hi");
-        String expected = "Длина пароля должна находиться в диапазоне [8, 32]";
-        assertThat(result).isEqualTo(expected);
+        LengthException exception = assertThrows(
+                LengthException.class,
+                () -> {
+                    PasswordValidator.validate("meow");
+                });
+        assertThat(exception.getMessage()).isEqualTo("Длина пароля должна находиться в диапазоне [8, 32]");
     }
 
     @Test
     public void whenNoUpperCase() {
-        String result = PasswordValidator.validate("meowmeow");
-        String expected = "Пароль должен содержать хотя бы один символ в верхнем регистре";
-        assertThat(result).isEqualTo(expected);
+        NoUppercaseException exception = assertThrows(
+                NoUppercaseException.class,
+                () -> {
+                    PasswordValidator.validate("meowmeow");
+                });
+        assertThat(exception.getMessage()).isEqualTo("Пароль должен содержать хотя бы один символ в верхнем регистре");
     }
 
     @Test
     public void whenNoLowerCase() {
-        String result = PasswordValidator.validate("MEOWMEOW");
-        String expected = "Пароль должен содержать хотя бы один символ в нижнем регистре";
-        assertThat(result).isEqualTo(expected);
+        NoLowercaseException exception = assertThrows(
+                NoLowercaseException.class,
+                () -> {
+                    PasswordValidator.validate("MEOWMEOW");
+                });
+        assertThat(exception.getMessage()).isEqualTo("Пароль должен содержать хотя бы один символ в нижнем регистре");
     }
 
     @Test
     public void whenNoDigits() {
-        String result = PasswordValidator.validate("MeowMeow");
-        String expected = "Пароль должен содержать хотя бы одну цифру";
-        assertThat(result).isEqualTo(expected);
+        DigitsException exception = assertThrows(
+                DigitsException.class,
+                () -> {
+                    PasswordValidator.validate("Meowmeowmeow");
+                });
+        assertThat(exception.getMessage()).isEqualTo("Пароль должен содержать хотя бы одну цифру");
     }
 
     @Test
     public void whenNoSpecialSymbol() {
-        String result = PasswordValidator.validate("MeowMeow1");
-        String expected = "Пароль должен содержать хотя бы один спец. символ (не цифра и не буква)";
-        assertThat(result).isEqualTo(expected);
+        SymbolException exception = assertThrows(
+                SymbolException.class,
+                () -> {
+                    PasswordValidator.validate("Meowmeowmeow1");
+                });
+        assertThat(exception.getMessage()).isEqualTo("Пароль должен содержать хотя бы один спец. символ (не цифра и не буква)");
     }
 
     @Test
-    public void whenValidPassport() {
+    public void whenValidPassport() throws UserInputException {
         String result = PasswordValidator.validate("$Meooooooowww1");
-        String expected = "$Meooooooowww1";
+        String expected = "Your Password is valid";
         assertThat(result).isEqualTo(expected);
     }
 }
