@@ -78,7 +78,7 @@ public class PasswordValidatorTest {
     }
 
     @Test
-    public void whenValidPassport() throws UserInputException {
+    public void whenValidPassport() {
         String result = PasswordValidator.validate("$Meooooooowww1");
         String expected = "Your Password is valid";
         assertThat(result).isEqualTo(expected);

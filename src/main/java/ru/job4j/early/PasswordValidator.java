@@ -3,7 +3,7 @@ package ru.job4j.early;
 import java.util.Objects;
 
 public class PasswordValidator {
-    public static String validate(String password) throws UserInputException {
+    public static String validate(String password) {
         if (password == null) {
             throw new IllegalArgumentException("password is null");
         }
