@@ -13,7 +13,6 @@ public class ConvertList2Array {
             if (cell == cells) {
                 cell = 0;
                 row++;
-                System.out.println();
             }
         }
         return array;
