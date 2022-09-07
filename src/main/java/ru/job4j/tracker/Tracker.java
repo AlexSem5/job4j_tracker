@@ -16,7 +16,7 @@ public class Tracker {
     }
 
     public List<Item> findAll() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     public List<Item> findByName(String key) {
@@ -36,9 +36,9 @@ public class Tracker {
 
     private int indexOf(int id) {
         int rsl = -1;
-        for (Item item : items) {
-            if (item.getId() == id) {
-                rsl = items.indexOf(item);
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId() == id) {
+                rsl = index;
                 break;
             }
         }
