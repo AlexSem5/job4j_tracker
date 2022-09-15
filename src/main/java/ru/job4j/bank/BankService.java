@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Класс описывает модель банковской системы
- * @Author ALEKSANDR S
+ * @author Aleksandr S
  * @version 1.0
  */
 
