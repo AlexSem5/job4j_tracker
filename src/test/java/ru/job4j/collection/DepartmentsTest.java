@@ -13,7 +13,7 @@ public class DepartmentsTest {
         List<String> input = Arrays.asList("k1/sk1", "k2/sk1");
         List<String> expect = Arrays.asList("k1", "k1/sk1", "k2", "k2/sk1");
         List<String> result = Departments.fillGaps(input);
-        assertThat(result).containsAll(expect);
+        assertThat(result).containsSequence(expect);
     }
 
     @Test
@@ -21,7 +21,7 @@ public class DepartmentsTest {
         List<String> input = Arrays.asList("k1", "k1/sk1");
         List<String> expect = Arrays.asList("k1", "k1/sk1");
         List<String> result = Departments.fillGaps(input);
-        assertThat(result).containsAll(expect);
+        assertThat(result).containsSequence(expect);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class DepartmentsTest {
                 "K2/SK1/SSK2"
         );
         Departments.sortAsc(input);
-        assertThat(input).containsAll(expect);
+        assertThat(input).containsSequence(expect);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class DepartmentsTest {
                 "K2/SK1/SSK2"
         );
         Departments.sortAsc(input);
-        assertThat(input).containsAll(expect);
+        assertThat(input).containsSequence(expect);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class DepartmentsTest {
                 "K1/SK2"
         );
         Departments.sortDesc(input);
-        assertThat(input).containsAll(expect);
+        assertThat(input).containsSequence(expect);
     }
 
     @Test
@@ -123,6 +123,6 @@ public class DepartmentsTest {
                 "K1/SK2"
         );
         Departments.sortDesc(input);
-        assertThat(input).containsAll(expect);
+        assertThat(input).containsSequence(expect);
     }
 }
