@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Класс описывает модель банковской системы
+ *
  * @author Aleksandr S
  * @version 1.0
  */
@@ -16,6 +17,7 @@ public class BankService {
 
     /**
      * Метод добавляет нового пользователя в систему
+     *
      * @param user пользователь, который добавляется в систему
      */
 
@@ -25,8 +27,9 @@ public class BankService {
 
     /**
      * Метод добавляет новый счёт пользователю
+     *
      * @param passport паспорт пользователя
-     * @param account уникальный счёт, который требуется добавить
+     * @param account  уникальный счёт, который требуется добавить
      */
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
@@ -40,49 +43,45 @@ public class BankService {
 
     /**
      * Метод ищет пользователя по номеру паспорта
+     *
      * @param passport паспорт пользователя
      * @return возвращает найденного пользователя или null, если пользователь не найден
      */
+
     public User findByPassport(String passport) {
-        User result = null;
-        for (User user : users.keySet()) {
-            if (Objects.equals(user.getPassport(), passport)) {
-                result = user;
-                break;
-            }
-        }
-        return result;
+        return users.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
      * Метод ищет счет пользователя по реквизитам
-     * @param passport паспорт пользователя
+     *
+     * @param passport  паспорт пользователя
      * @param requisite реквизиты счёта пользователя
      * @return возвращает найдённый счёт пользователя или null, если счёт не найдён
      */
 
     public Account findByRequisite(String passport, String requisite) {
-        Account result = null;
         User user = findByPassport(passport);
         if (user != null) {
-            List<Account> accounts = users.get(user);
-            for (Account account : accounts) {
-                if (Objects.equals(account.getRequisite(), requisite)) {
-                    result = account;
-                    break;
-                }
-            }
+            return users.get(user).stream()
+                    .filter(account -> account.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
-        return result;
+        return null;
     }
 
     /**
      * Метод переводит средства с одного счёта на другой счёт
-     * @param srcPassport паспорт пользователя, со счёта которого переводят средства
-     * @param srcRequisite реквизиты счёта, с которого переводят средства
-     * @param destPassport паспорт пользователя, на счёт которого переводят средства
+     *
+     * @param srcPassport   паспорт пользователя, со счёта которого переводят средства
+     * @param srcRequisite  реквизиты счёта, с которого переводят средства
+     * @param destPassport  паспорт пользователя, на счёт которого переводят средства
      * @param destRequisite реквизиты счёта, на который переводят средства
-     * @param amount сумма перечисляемых денежных средств
+     * @param amount        сумма перечисляемых денежных средств
      * @return возвращает true, если на счёте srcAccount достаточно средств или false, если недостаточно
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
@@ -92,15 +91,16 @@ public class BankService {
         Account destAccount = findByRequisite(destPassport, destRequisite);
         if (srcAccount != null && destAccount != null
                 && srcAccount.getBalance() >= amount) {
-                destAccount.setBalance(destAccount.getBalance() + amount);
-                srcAccount.setBalance(srcAccount.getBalance() - amount);
-                rsl = true;
+            destAccount.setBalance(destAccount.getBalance() + amount);
+            srcAccount.setBalance(srcAccount.getBalance() - amount);
+            rsl = true;
         }
         return rsl;
     }
 
     /**
      * Метод для осуществления тестов
+     *
      * @param user позователь
      * @return список счетов пользлвателя
      */
