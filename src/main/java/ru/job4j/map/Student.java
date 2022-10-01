@@ -2,7 +2,7 @@ package ru.job4j.map;
 
 import java.util.Objects;
 
-public record Subject(String name, int score) {
+public record Student(String name, String account, String group) {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -11,12 +11,12 @@ public record Subject(String name, int score) {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Subject subject = (Subject) o;
-        return Objects.equals(name, subject.name);
+        Student student = (Student) o;
+        return Objects.equals(account, student.account);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(account);
     }
 }
