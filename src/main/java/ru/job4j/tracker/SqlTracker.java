@@ -1,10 +1,8 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.Item;
-
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -21,8 +19,7 @@ public class SqlTracker implements Store {
     }
     
     private void init() {
-        try (InputStream in = SqlTracker.class.getClassLoader()
-                                              .getResourceAsStream("app.properties")) {
+        try (InputStream in = new FileInputStream("db/liquibase.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -66,7 +63,7 @@ public class SqlTracker implements Store {
     
     @Override
     public boolean replace(int id, Item item) {
-        boolean result = false;
+        boolean result;
         try (PreparedStatement ps = cn.prepareStatement("UPDATE items SET name = ? WHERE id = ?")) {
             ps.setString(1, item.getName());
             ps.setInt(2, id);
